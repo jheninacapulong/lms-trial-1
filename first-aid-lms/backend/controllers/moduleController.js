@@ -7,9 +7,14 @@ exports.getModules = async (req, res) => {
 
 exports.createModule = async (req, res) => {
   const { title, order, courseId } = req.body;
+  const parsedOrder = order === undefined || order === null || order === "" ? 0 : Number(order);
 
   const module = await prisma.module.create({
-    data: { title, order, courseId }
+    data: {
+      title,
+      order: Number.isNaN(parsedOrder) ? 0 : parsedOrder,
+      courseId,
+    }
   });
 
   res.json(module);

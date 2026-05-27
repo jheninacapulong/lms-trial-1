@@ -1,15 +1,33 @@
 const prisma = require("../prisma/prismaClient");
 
 exports.getLessons = async (req, res) => {
-  const lessons = await prisma.lesson.findMany();
+  const { moduleId } = req.query;
+  const lessons = await prisma.lesson.findMany({
+    where: moduleId ? { moduleId } : {},
+    orderBy: { order: 'asc' }
+  });
   res.json(lessons);
 };
 
+exports.getLessonById = async (req, res) => {
+  const { id } = req.params;
+  const lesson = await prisma.lesson.findUnique({
+    where: { id }
+  });
+  res.json(lesson);
+};
+
 exports.createLesson = async (req, res) => {
-  const { title, content, videoUrl, imageUrl, moduleId } = req.body;
+  const { title, content, moduleId, order } = req.body;
+  const parsedOrder = order === undefined || order === null || order === "" ? 0 : Number(order);
 
   const lesson = await prisma.lesson.create({
-    data: { title, content, videoUrl, imageUrl, moduleId }
+    data: {
+      title,
+      content,
+      moduleId,
+      order: Number.isNaN(parsedOrder) ? 0 : parsedOrder,
+    }
   });
 
   res.json(lesson);

@@ -7,6 +7,8 @@ const moduleRoutes = require("./routes/moduleRoutes");
 const lessonRoutes = require("./routes/lessonRoutes");
 const learnerRoutes = require("./routes/learnerRoutes");
 const enrollmentRoutes = require("./routes/enrollmentRoutes");
+const assessmentRoutes = require("./routes/assessmentRoutes");
+const questionRoutes = require("./routes/questionRoutes");
 
 const app = express();
 
@@ -19,6 +21,8 @@ app.use("/api/modules", moduleRoutes);
 app.use("/api/lessons", lessonRoutes);
 app.use("/api/learners", learnerRoutes);
 app.use("/api/enrollments", enrollmentRoutes);
+app.use("/api/assessments", assessmentRoutes);
+app.use("/api/questions", questionRoutes);
 
 app.get("/", (req, res) => {
   res.json({ message: "LMS API Running" });
