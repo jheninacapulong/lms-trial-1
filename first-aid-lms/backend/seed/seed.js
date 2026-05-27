@@ -2,7 +2,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log("🌱 Seeding database...");
+  console.log("Seeding database...");
 
   // Clear existing data
   await prisma.enrollment.deleteMany({});
@@ -340,12 +340,12 @@ async function main() {
     }
   }
 
-  console.log("✅ Database seeded successfully!");
+  console.log("Database seeded successfully!");
 }
 
 main()
   .catch((e) => {
-    console.error("❌ Seeding failed:", e);
+    console.error("Seeding failed:", e);
     process.exit(1);
   })
   .finally(async () => {

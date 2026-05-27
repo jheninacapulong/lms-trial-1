@@ -13,6 +13,7 @@
     "axios": "^1.16.1",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
+    "react-hot-toast": "^2.6.0",
     "react-router-dom": "^7.15.1"
   },
   "devDependencies": {
@@ -25,5 +26,10 @@
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.6.0",
     "vite": "^8.0.12"
-  }
+  },
+  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
+  "main": "eslint.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
