@@ -6,6 +6,12 @@ export default function Courses() {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
+  const [editingCourseId, setEditingCourseId] = useState(null);
+  const [editingCourseForm, setEditingCourseForm] = useState({
+    title: "",
+    description: "",
+    category: "",
+  });
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -40,11 +46,31 @@ export default function Courses() {
     }
   }
 
+  function startEditCourse(course) {
+    setEditingCourseId(course.id);
+    setEditingCourseForm({
+      title: course.title || "",
+      description: course.description || "",
+      category: course.category || "",
+    });
+  }
+
+  async function handleSaveCourse(id) {
+    try {
+      await API.put(`/courses/${id}`, editingCourseForm);
+      setEditingCourseId(null);
+      await loadCourses();
+    } catch (err) {
+      console.error("Failed to update course:", err);
+    }
+  }
+
   async function handleDeleteCourse(id) {
     if (window.confirm("Are you sure you want to delete this course?")) {
       try {
         await API.delete(`/courses/${id}`);
-        loadCourses();
+        setEditingCourseId(null);
+        await loadCourses();
       } catch (err) {
         console.error("Failed to delete course:", err);
       }
@@ -110,24 +136,44 @@ export default function Courses() {
           {courses.map(course => (
             <div key={course.id} className="bg-white rounded-lg shadow overflow-hidden hover:shadow-lg transition">
               <div className="p-4">
-                <h3 className="font-bold text-lg mb-2">{course.title}</h3>
-                {course.category && <p className="text-sm text-gray-500 italic mb-2">({course.category})</p>}
-                {course.modules && <p className="text-sm text-gray-500 mb-2">{course.modules.length} modules</p>}
-                <p className="text-sm text-gray-600 mb-4">{course.description?.substring(0, 100)}...</p>
-                <div className="flex gap-2">
-                  <Link
-                    to={`/courses/${course.id}`}
-                    className="flex-1 text-center bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700 transition text-sm"
-                  >
-                    View Details
-                  </Link>
-                  <button
-                    onClick={() => handleDeleteCourse(course.id)}
-                    className="bg-red-600 text-white px-3 py-2 rounded hover:bg-red-700 transition text-sm"
-                  >
-                    Delete
-                  </button>
-                </div>
+                {editingCourseId === course.id ? (
+                  <div className="space-y-3">
+                    <input
+                      type="text"
+                      value={editingCourseForm.title}
+                      onChange={(e) => setEditingCourseForm({ ...editingCourseForm, title: e.target.value })}
+                      className="w-full border rounded px-3 py-2 bg-gray-100"
+                    />
+                    <input
+                      type="text"
+                      value={editingCourseForm.category}
+                      onChange={(e) => setEditingCourseForm({ ...editingCourseForm, category: e.target.value })}
+                      className="w-full border rounded px-3 py-2 bg-gray-100"
+                    />
+                    <textarea
+                      value={editingCourseForm.description}
+                      onChange={(e) => setEditingCourseForm({ ...editingCourseForm, description: e.target.value })}
+                      className="w-full border rounded px-3 py-2 bg-gray-100"
+                      rows="3"
+                    />
+                    <div className="flex gap-2">
+                      <button onClick={() => handleSaveCourse(course.id)} className="flex-1 bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700 transition text-sm">Save</button>
+                      <button onClick={() => setEditingCourseId(null)} className="px-3 py-2 rounded border text-sm">Cancel</button>
+                      <button onClick={() => handleDeleteCourse(course.id)} className="bg-red-600 text-white px-3 py-2 rounded hover:bg-red-700 transition text-sm">Delete</button>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <h3 className="font-bold text-lg mb-2">{course.title}</h3>
+                    {course.category && <p className="text-sm text-gray-500 italic mb-2">({course.category})</p>}
+                    {course.modules && <p className="text-sm text-gray-500 mb-2">{course.modules.length} modules</p>}
+                    <p className="text-sm text-gray-600 mb-4">{course.description?.substring(0, 100)}...</p>
+                    <div className="flex gap-2">
+                      <Link to={`/courses/${course.id}`} className="flex-1 text-center bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700 transition text-sm">View Details</Link>
+                      <button onClick={() => startEditCourse(course)} className="bg-gray-100 text-gray-700 px-3 py-2 rounded hover:bg-gray-200 transition text-sm">Edit</button>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           ))}
