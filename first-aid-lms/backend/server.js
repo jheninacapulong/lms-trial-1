@@ -10,12 +10,26 @@ const enrollmentRoutes = require("./routes/enrollmentRoutes");
 const assessmentRoutes = require("./routes/assessmentRoutes");
 const questionRoutes = require("./routes/questionRoutes");
 
+const errorMiddleware = require("./middleware/errorMiddleware");
+
 const app = express();
 
-app.use(cors());
+/* ---------------- MIDDLEWARE ---------------- */
+
+// Allow frontend (LOCAL + VERCEL)
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "http://localhost:3000",
+    "https://your-frontend.vercel.app"
+  ],
+  credentials: true
+}));
+
 app.use(express.json());
 
-// Routes
+/* ---------------- ROUTES ---------------- */
+
 app.use("/api/courses", courseRoutes);
 app.use("/api/modules", moduleRoutes);
 app.use("/api/lessons", lessonRoutes);
@@ -24,16 +38,20 @@ app.use("/api/enrollments", enrollmentRoutes);
 app.use("/api/assessments", assessmentRoutes);
 app.use("/api/questions", questionRoutes);
 
+/* ---------------- HEALTH CHECK ---------------- */
+
 app.get("/", (req, res) => {
   res.json({ message: "LMS API Running" });
 });
+
+/* ---------------- ERROR HANDLER (MUST BE LAST) ---------------- */
+
+app.use(errorMiddleware);
+
+/* ---------------- START SERVER ---------------- */
 
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
-const errorMiddleware = require("./middleware/errorMiddleware");
-
-app.use(errorMiddleware);
