@@ -30,20 +30,20 @@ export default function Dashboard() {
 
   if (loading)
     return (
-      <div className="p-6">
+      <div className="space-y-8">
         <p>Loading dashboard...</p>
       </div>
     );
 
   if (error)
     return (
-      <div className="p-6">
+      <div className="space-y-8">
         <p className="text-red-500">{error}</p>
       </div>
     );
 
   return (
-    <div className="p-6">
+    <div className="space-y-8">
       <h1 className="text-3xl font-bold mb-8">Dashboard Overview</h1>
 
       {/* STATS GRID */}
@@ -119,7 +119,7 @@ export default function Dashboard() {
 
 function DashboardCard({ icon, title, value }) {
   return (
-    <div className="bg-white border rounded-lg p-6 shadow hover:shadow-md transition">
+    <div className="card">
       <div className="text-3xl mb-2">{icon}</div>
       <p className="text-gray-500 text-sm">{title}</p>
       <h3 className="text-2xl font-bold">{value}</h3>

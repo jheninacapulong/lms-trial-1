@@ -1,15 +1,91 @@
+/* =========================
+   APP LAYOUT
+========================= */
+
 .app-layout {
   display: flex;
   height: 100vh;
+  background: #f4f6fb; /* soft app background */
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
 }
+
+/* =========================
+   SIDEBAR AREA (assumes fixed sidebar)
+========================= */
+
+.app-layout > :first-child {
+  flex-shrink: 0;
+  width: 260px; /* consistent sidebar width */
+  background: #111827; /* dark admin sidebar feel */
+  color: white;
+}
+
+/* =========================
+   MAIN AREA
+========================= */
 
 .main-area {
   flex: 1;
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
+/* =========================
+   NAVBAR
+========================= */
+
+.main-area > :first-child {
+  height: 64px;
+  flex-shrink: 0;
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  z-index: 10;
+}
+
+/* =========================
+   CONTENT AREA
+========================= */
+
 .content {
-  padding: 20px;
+  flex: 1;
   overflow-y: auto;
+  padding: 28px;
+  background: #f4f6fb;
+}
+
+/* nice scrollbar */
+.content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.content::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+.content::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* =========================
+   OPTIONAL: CARD BASE STYLE
+   (works with your dashboard cards)
+========================= */
+
+.card {
+  background: white;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.1);
 }
