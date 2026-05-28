@@ -44,30 +44,27 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-8">
-      <h1 className="text-3xl font-bold mb-8">Dashboard Overview</h1>
+      <h1 className="text-3xl text-gray-700 font-bold mb-8">Dashboard Overview</h1>
 
       {/* STATS GRID */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <DashboardCard icon="📚" title="Total Courses" value={stats.totalCourses} />
-        <DashboardCard icon="📦" title="Total Modules" value={stats.totalModules} />
-        <DashboardCard icon="📄" title="Total Lessons" value={stats.totalLessons} />
-        <DashboardCard icon="👥" title="Total Learners" value={stats.totalLearners} />
+        <DashboardCard title="Total Courses" value={stats.totalCourses} />
+        <DashboardCard title="Total Modules" value={stats.totalModules} />
+        <DashboardCard title="Total Lessons" value={stats.totalLessons} />
+        <DashboardCard title="Total Learners" value={stats.totalLearners} />
       </div>
 
       {/* SECOND ROW */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
         <DashboardCard
-          icon="🧾"
           title="Enrollments"
           value={stats.totalEnrollments}
         />
         <DashboardCard
-          icon="✅"
           title="Completed"
           value={stats.completedEnrollments}
         />
         <DashboardCard
-          icon="📈"
           title="Completion Rate"
           value={`${stats.completionRate}%`}
         />
@@ -76,8 +73,8 @@ export default function Dashboard() {
       {/* ANALYTICS SECTION */}
       <div className="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Progress Overview */}
-        <div className="bg-white shadow rounded-lg p-6">
-          <h2 className="font-bold text-lg mb-4">Learning Overview</h2>
+        <div className="bg-white shadow rounded-lg p-6 ">
+          <h2 className="font-bold text-gray-700 text-lg mb-4">Learning Overview</h2>
 
           <p className="text-gray-600">
             Average Progress:{" "}
@@ -96,16 +93,16 @@ export default function Dashboard() {
 
         {/* Placeholder chart box */}
         <div className="bg-white shadow rounded-lg p-6">
-          <h2 className="font-bold text-lg mb-4">Analytics (Future Chart)</h2>
+          <h2 className="font-bold text-lg mb-4  text-gray-700">Analytics (Future Chart)</h2>
           <div className="h-40 flex items-center justify-center text-gray-400 border rounded">
-            Chart Area (Recharts)
+            Chart Area
           </div>
         </div>
       </div>
 
       {/* INFO BOX */}
       <div className="mt-10 bg-white rounded-lg shadow p-6">
-        <h2 className="text-xl font-bold mb-4">LMS Admin Panel</h2>
+        <h2 className="text-xl font-bold mb-4  text-gray-700">LMS Admin Panel</h2>
         <p className="text-gray-600">
           Manage courses, modules, lessons, assessments, and track learner progress
           across the platform.

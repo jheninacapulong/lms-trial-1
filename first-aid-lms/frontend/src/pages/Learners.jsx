@@ -69,7 +69,7 @@ export default function Learners() {
                 placeholder="Full Name"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="border rounded px-3 py-2"
+                className="border rounded px-3 py-2 bg-gray-100"
                 required
               />
               <input
@@ -77,7 +77,7 @@ export default function Learners() {
                 placeholder="Email"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="border rounded px-3 py-2"
+                className="border rounded px-3 py-2 bg-gray-100"
                 required
               />
             </div>

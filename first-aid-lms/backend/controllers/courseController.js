@@ -47,20 +47,14 @@ exports.getCourseById = async (req, res) => {
 // CREATE COURSE
 exports.createCourse = async (req, res) => {
   try {
-    const { title, description, thumbnail, category, duration } = req.body;
-
-    const parsedDuration =
-      duration === undefined || duration === null || duration === ""
-        ? null
-        : Number(duration);
+    const { title, description, thumbnail, category } = req.body;
 
     const course = await prisma.course.create({
       data: {
         title,
         description,
         thumbnail,
-        category,
-        duration: Number.isNaN(parsedDuration) ? null : parsedDuration
+        category
       }
     });
 

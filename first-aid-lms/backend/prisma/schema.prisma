@@ -17,7 +17,6 @@ model Course {
   description String?
   thumbnail String?
   category  String?
-  duration  Int?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

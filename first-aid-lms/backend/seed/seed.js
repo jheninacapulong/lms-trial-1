@@ -26,7 +26,6 @@ async function main() {
       title: "Basic First Aid Fundamentals",
       description: "Learn the fundamentals of first aid including CPR, wound care, and emergency response.",
       category: "First Aid",
-      duration: 120,
       thumbnail: "https://via.placeholder.com/300x200?text=First+Aid+Fundamentals",
     },
   });
@@ -36,7 +35,6 @@ async function main() {
       title: "CPR and Emergency Response",
       description: "Master CPR techniques and emergency response procedures for life-threatening situations.",
       category: "First Aid",
-      duration: 90,
       thumbnail: "https://via.placeholder.com/300x200?text=CPR+Emergency+Response",
     },
   });

@@ -10,7 +10,6 @@ export default function Courses() {
     title: "",
     description: "",
     category: "",
-    duration: "",
   });
 
   useEffect(() => {
@@ -32,13 +31,8 @@ export default function Courses() {
   async function handleCreateCourse(e) {
     e.preventDefault();
     try {
-      const payload = {
-        ...formData,
-        duration: formData.duration ? Number(formData.duration) : null,
-      };
-
-      await API.post("/courses", payload);
-      setFormData({ title: "", description: "", category: "", duration: "" });
+      await API.post("/courses", formData);
+      setFormData({ title: "", description: "", category: "" });
       setShowForm(false);
       await loadCourses();
     } catch (err) {
@@ -60,7 +54,7 @@ export default function Courses() {
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">Courses</h1>
+        <h1 className="text-3xl  text-gray-700 font-bold">Courses</h1>
         <button
           onClick={() => setShowForm(!showForm)}
           className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
@@ -79,7 +73,7 @@ export default function Courses() {
                 placeholder="Course Title"
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                className="border rounded px-3 py-2"
+                className="border rounded px-3 py-2 bg-gray-100"
                 required
               />
               <input
@@ -87,21 +81,14 @@ export default function Courses() {
                 placeholder="Category"
                 value={formData.category}
                 onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                className="border rounded px-3 py-2"
-              />
-              <input
-                type="number"
-                placeholder="Duration (minutes)"
-                value={formData.duration}
-                onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
-                className="border rounded px-3 py-2"
+                className="border rounded px-3 py-2 bg-gray-100"
               />
             </div>
             <textarea
               placeholder="Course Description"
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              className="w-full border rounded px-3 py-2 mt-4"
+              className="w-full border rounded px-3 py-2 mt-4 bg-gray-100"
               rows="3"
             />
             <button
@@ -124,9 +111,8 @@ export default function Courses() {
             <div key={course.id} className="bg-white rounded-lg shadow overflow-hidden hover:shadow-lg transition">
               <div className="p-4">
                 <h3 className="font-bold text-lg mb-2">{course.title}</h3>
-                {course.category && <p className="text-sm text-gray-500 mb-2">📁 {course.category}</p>}
-                {course.duration && <p className="text-sm text-gray-500 mb-2">⏱️ {course.duration} min</p>}
-                {course.modules && <p className="text-sm text-gray-500 mb-2">📦 {course.modules.length} modules</p>}
+                {course.category && <p className="text-sm text-gray-500 italic mb-2">({course.category})</p>}
+                {course.modules && <p className="text-sm text-gray-500 mb-2">{course.modules.length} modules</p>}
                 <p className="text-sm text-gray-600 mb-4">{course.description?.substring(0, 100)}...</p>
                 <div className="flex gap-2">
                   <Link

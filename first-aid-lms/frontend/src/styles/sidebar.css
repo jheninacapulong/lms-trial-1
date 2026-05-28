@@ -1,22 +1,26 @@
 .sidebar {
   width: 240px;
-  background: #ffffff;
-  border-right: 1px solid #ddd;
+  background: #111827;
+  border-right: 1px solid #374151;
   padding: 20px;
+  color: #f9fafb;
 }
 
 .sidebar h2 {
   margin-bottom: 20px;
+  color: #f9fafb;
 }
 
 .sidebar a {
   display: block;
   padding: 10px;
-  color: #333;
+  color: #e5e7eb;
   text-decoration: none;
   border-radius: 6px;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .sidebar a:hover {
-  background: #f0f0f0;
+  background: #e5e7eb;
+  color: #111827;
 }
