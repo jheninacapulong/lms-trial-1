@@ -665,9 +665,7 @@ export default function CourseDetail() {
                             key={lesson.id}
                             draggable
                             onClick={() =>
-                              setSelectedLesson(
-                                lesson
-                              )
+                              setSelectedLesson(lesson)
                             }
                             onDragStart={() =>
                               setDraggedLessonId(
@@ -723,6 +721,7 @@ export default function CourseDetail() {
 
                     </div>
 
+
                   </div>
                 )}
 
@@ -755,6 +754,47 @@ export default function CourseDetail() {
         </button>
 
       </div>
+
+      {/* SELECTED LESSON POPUP */}
+      {selectedLesson && !editingLessonId && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+          <div className="w-full max-w-2xl rounded-lg bg-white p-5 shadow-xl">
+            <div className="mb-4 flex items-start justify-between gap-3">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wide text-blue-600">Lesson preview</p>
+                <h3 className="text-xl font-semibold text-gray-800">{selectedLesson.title}</h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setSelectedLesson(null)}
+                className="rounded border border-gray-200 px-3 py-1 text-sm text-gray-600 hover:bg-gray-100"
+              >
+                Close
+              </button>
+            </div>
+
+            <div
+              className="prose prose-sm max-w-none rounded border border-gray-200 bg-gray-50 p-4 text-gray-700"
+              dangerouslySetInnerHTML={{
+                __html: selectedLesson.content || "<p>No lesson content yet.</p>",
+              }}
+            />
+
+            <div className="mt-4 flex justify-end">
+              <button
+                type="button"
+                onClick={() => {
+                  startEditLesson(selectedLesson);
+                  setSelectedLesson(null);
+                }}
+                className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+              >
+                Edit lesson content
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* EDIT LESSON MODAL */}
       {editingLessonId && (

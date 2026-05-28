@@ -60,21 +60,24 @@ export default function StyledRTE({ value, onChange, height = 200 }) {
 
         <button
           onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-          className={`rounded px-2 py-1 font-semibold text-gray-900 hover:bg-gray-200 ${editor.isActive("heading", { level: 1 }) ? "bg-gray-200 text-black" : ""}`}
+          className={`rounded px-2 py-1 hover:bg-gray-200 ${editor.isActive("heading", { level: 1 }) ? "bg-gray-200" : ""}`}
+          style={{ fontSize: "1.1rem", fontWeight: 700, color: "#000000" }}
         >
           H1
         </button>
 
         <button
           onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-          className={`rounded px-2 py-1 font-semibold text-gray-900 hover:bg-gray-200 ${editor.isActive("heading", { level: 2 }) ? "bg-gray-200 text-black" : ""}`}
+          className={`rounded px-2 py-1 hover:bg-gray-200 ${editor.isActive("heading", { level: 2 }) ? "bg-gray-200" : ""}`}
+          style={{ fontSize: "1rem", fontWeight: 700, color: "#000000" }}
         >
           H2
         </button>
 
         <button
           onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-          className={`rounded px-2 py-1 font-semibold text-gray-900 hover:bg-gray-200 ${editor.isActive("heading", { level: 3 }) ? "bg-gray-200 text-black" : ""}`}
+          className={`rounded px-2 py-1 hover:bg-gray-200 ${editor.isActive("heading", { level: 3 }) ? "bg-gray-200" : ""}`}
+          style={{ fontSize: "0.95rem", fontWeight: 700, color: "#000000" }}
         >
           H3
         </button>
@@ -83,11 +86,11 @@ export default function StyledRTE({ value, onChange, height = 200 }) {
       {/* EDITOR */}
       <EditorContent
         editor={editor}
-        className="prose prose-slate max-w-none text-black"
+        className="prose prose-slate max-w-none !text-black prose-headings:text-black"
         style={{
           minHeight: height,
           padding: "12px",
-          color: "#111827",
+          color: "#000000",
           whiteSpace: "pre-wrap",
         }}
       />
