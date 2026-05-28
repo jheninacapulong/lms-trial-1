@@ -17,6 +17,7 @@ const app = express();
 
 /* ---------------- MIDDLEWARE ---------------- */
 
+console.log("🔥 SERVER VERSION: DASHBOARD FIX ACTIVE");
 // Allow frontend (LOCAL + VERCEL)
 app.use(cors({
   origin: [
@@ -39,6 +40,7 @@ app.use("/api/learners", learnerRoutes);
 app.use("/api/enrollments", enrollmentRoutes);
 app.use("/api/assessments", assessmentRoutes);
 app.use("/api/questions", questionRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 
 /* ---------------- HEALTH CHECK ---------------- */
 
