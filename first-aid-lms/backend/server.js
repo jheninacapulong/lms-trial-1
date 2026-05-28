@@ -21,7 +21,8 @@ app.use(cors({
   origin: [
     "http://localhost:5173",
     "http://localhost:3000",
-    "https://your-frontend.vercel.app"
+    "https://lms-trial-1-l9dsz0e0a-jheninacapulongs-projects.vercel.app",
+    "https://lms-trial-1.vercel.app"
   ],
   credentials: true
 }));
