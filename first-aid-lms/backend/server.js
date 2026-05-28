@@ -26,6 +26,7 @@ app.use(cors({
     "https://lms-trial-1-l9dsz0e0a-jheninacapulongs-projects.vercel.app",
     "https://lms-trial-1.vercel.app"
   ],
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   credentials: true
 }));
 
