@@ -7,19 +7,22 @@
   min-height: 100vh;
   width: 100vw;
   max-width: 100%;
-  background: #f4f6fb; /* soft app background */
+  background: #f4f6fb;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  overflow: hidden;
 }
 
 /* =========================
-   SIDEBAR AREA (assumes fixed sidebar)
+   SIDEBAR AREA
 ========================= */
 
 .app-layout > :first-child {
   flex-shrink: 0;
-  width: 260px; /* consistent sidebar width */
-  background: #111827; /* dark admin sidebar feel */
+  width: 260px;
+  background: #111827;
   color: white;
+  transition: width 0.3s ease;
+  overflow: hidden;
 }
 
 /* =========================
@@ -31,6 +34,7 @@
   display: flex;
   flex-direction: column;
   min-width: 0;
+  overflow: hidden;
 }
 
 /* =========================
@@ -63,23 +67,41 @@
   background: #f4f6fb;
 }
 
-/* nice scrollbar */
+/* =========================
+   TABLE RESPONSIVENESS
+========================= */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Prevent giant overflow */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Optional smoother mobile scrolling */
+.table-wrapper::-webkit-scrollbar,
 .content::-webkit-scrollbar {
+  height: 8px;
   width: 8px;
 }
 
+.table-wrapper::-webkit-scrollbar-thumb,
 .content::-webkit-scrollbar-thumb {
   background: #cbd5e1;
   border-radius: 10px;
 }
 
+.table-wrapper::-webkit-scrollbar-thumb:hover,
 .content::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
 }
 
 /* =========================
-   OPTIONAL: CARD BASE STYLE
-   (works with your dashboard cards)
+   CARD BASE STYLE
 ========================= */
 
 .card {
@@ -93,4 +115,72 @@
 .card:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 25px rgba(15, 23, 42, 0.1);
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+  /* Smaller sidebar */
+  .app-layout > :first-child {
+    width: 72px;
+  }
+
+  /* Smaller navbar */
+  .main-area > :first-child {
+    height: 56px;
+    padding: 0 12px;
+  }
+
+  /* Smaller content spacing */
+  .content {
+    padding: 12px;
+  }
+
+  /* Cards become tighter */
+  .card {
+    padding: 14px;
+    border-radius: 10px;
+  }
+
+  /* Better mobile table handling */
+  table {
+    min-width: 600px;
+  }
+
+  table th,
+  table td {
+    padding: 8px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+}
+
+/* =========================
+   EXTRA SMALL DEVICES
+========================= */
+
+@media (max-width: 480px) {
+  .app-layout > :first-child {
+    width: 60px;
+  }
+
+  .content {
+    padding: 8px;
+  }
+
+  .card {
+    padding: 12px;
+  }
+
+  table {
+    min-width: 500px;
+  }
+
+  table th,
+  table td {
+    font-size: 11px;
+    padding: 6px;
+  }
 }
