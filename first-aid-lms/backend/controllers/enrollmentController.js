@@ -1,38 +1,62 @@
 const prisma = require("../prisma/prismaClient");
 
+// GET ALL ENROLLMENTS
 exports.getEnrollments = async (req, res) => {
-  const data = await prisma.enrollment.findMany({
-    include: { learner: true, course: true }
-  });
+  try {
+    const data = await prisma.enrollment.findMany({
+      include: { learner: true, course: true }
+    });
 
-  res.json(data);
+    return res.json(data);
+  } catch (error) {
+    console.error("getEnrollments error:", error);
+    return res.status(500).json({ error: "Failed to fetch enrollments" });
+  }
 };
 
+// CREATE ENROLLMENT
 exports.createEnrollment = async (req, res) => {
-  const { learnerId, courseId } = req.body;
+  try {
+    const { learnerId, courseId } = req.body;
 
-  const enrollment = await prisma.enrollment.create({
-    data: { learnerId, courseId }
-  });
+    const enrollment = await prisma.enrollment.create({
+      data: { learnerId, courseId }
+    });
 
-  res.json(enrollment);
+    return res.json(enrollment);
+  } catch (error) {
+    console.error("createEnrollment error:", error);
+    return res.status(500).json({ error: "Failed to create enrollment" });
+  }
 };
 
+// UPDATE ENROLLMENT
 exports.updateEnrollment = async (req, res) => {
-  const { id } = req.params;
+  try {
+    const { id } = req.params;
 
-  const updated = await prisma.enrollment.update({
-    where: { id },
-    data: req.body
-  });
+    const updated = await prisma.enrollment.update({
+      where: { id },
+      data: req.body
+    });
 
-  res.json(updated);
+    return res.json(updated);
+  } catch (error) {
+    console.error("updateEnrollment error:", error);
+    return res.status(500).json({ error: "Failed to update enrollment" });
+  }
 };
 
+// DELETE ENROLLMENT
 exports.deleteEnrollment = async (req, res) => {
-  const { id } = req.params;
+  try {
+    const { id } = req.params;
 
-  await prisma.enrollment.delete({ where: { id } });
+    await prisma.enrollment.delete({ where: { id } });
 
-  res.json({ message: "Enrollment deleted" });
+    return res.json({ message: "Enrollment deleted" });
+  } catch (error) {
+    console.error("deleteEnrollment error:", error);
+    return res.status(500).json({ error: "Failed to delete enrollment" });
+  }
 };

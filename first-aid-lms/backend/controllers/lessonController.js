@@ -1,53 +1,91 @@
 const prisma = require("../prisma/prismaClient");
 
+// GET LESSONS
 exports.getLessons = async (req, res) => {
-  const { moduleId } = req.query;
-  const lessons = await prisma.lesson.findMany({
-    where: moduleId ? { moduleId } : {},
-    orderBy: { order: 'asc' }
-  });
-  res.json(lessons);
+  try {
+    const { moduleId } = req.query;
+
+    const lessons = await prisma.lesson.findMany({
+      where: moduleId ? { moduleId } : undefined,
+      orderBy: { order: "asc" }
+    });
+
+    return res.json(lessons);
+  } catch (error) {
+    console.error("getLessons error:", error);
+    return res.status(500).json({ error: "Failed to fetch lessons" });
+  }
 };
 
+// GET LESSON BY ID
 exports.getLessonById = async (req, res) => {
-  const { id } = req.params;
-  const lesson = await prisma.lesson.findUnique({
-    where: { id }
-  });
-  res.json(lesson);
+  try {
+    const { id } = req.params;
+
+    const lesson = await prisma.lesson.findUnique({
+      where: { id }
+    });
+
+    return res.json(lesson);
+  } catch (error) {
+    console.error("getLessonById error:", error);
+    return res.status(500).json({ error: "Failed to fetch lesson" });
+  }
 };
 
+// CREATE LESSON
 exports.createLesson = async (req, res) => {
-  const { title, content, moduleId, order } = req.body;
-  const parsedOrder = order === undefined || order === null || order === "" ? 0 : Number(order);
+  try {
+    const { title, content, moduleId, order } = req.body;
 
-  const lesson = await prisma.lesson.create({
-    data: {
-      title,
-      content,
-      moduleId,
-      order: Number.isNaN(parsedOrder) ? 0 : parsedOrder,
-    }
-  });
+    const parsedOrder =
+      order === undefined || order === null || order === ""
+        ? 0
+        : Number(order);
 
-  res.json(lesson);
+    const lesson = await prisma.lesson.create({
+      data: {
+        title,
+        content,
+        moduleId,
+        order: Number.isNaN(parsedOrder) ? 0 : parsedOrder
+      }
+    });
+
+    return res.json(lesson);
+  } catch (error) {
+    console.error("createLesson error:", error);
+    return res.status(500).json({ error: "Failed to create lesson" });
+  }
 };
 
+// UPDATE LESSON
 exports.updateLesson = async (req, res) => {
-  const { id } = req.params;
+  try {
+    const { id } = req.params;
 
-  const lesson = await prisma.lesson.update({
-    where: { id },
-    data: req.body
-  });
+    const lesson = await prisma.lesson.update({
+      where: { id },
+      data: req.body
+    });
 
-  res.json(lesson);
+    return res.json(lesson);
+  } catch (error) {
+    console.error("updateLesson error:", error);
+    return res.status(500).json({ error: "Failed to update lesson" });
+  }
 };
 
+// DELETE LESSON
 exports.deleteLesson = async (req, res) => {
-  const { id } = req.params;
+  try {
+    const { id } = req.params;
 
-  await prisma.lesson.delete({ where: { id } });
+    await prisma.lesson.delete({ where: { id } });
 
-  res.json({ message: "Lesson deleted" });
+    return res.json({ message: "Lesson deleted" });
+  } catch (error) {
+    console.error("deleteLesson error:", error);
+    return res.status(500).json({ error: "Failed to delete lesson" });
+  }
 };
