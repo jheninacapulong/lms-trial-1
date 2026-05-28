@@ -9,6 +9,7 @@ const learnerRoutes = require("./routes/learnerRoutes");
 const enrollmentRoutes = require("./routes/enrollmentRoutes");
 const assessmentRoutes = require("./routes/assessmentRoutes");
 const questionRoutes = require("./routes/questionRoutes");
+const dashboardRoutes = require("./routes/dashboardRoutes");
 
 const errorMiddleware = require("./middleware/errorMiddleware");
 
