@@ -18,17 +18,27 @@ const app = express();
 /* ---------------- MIDDLEWARE ---------------- */
 
 console.log("SERVER VERSION: DASHBOARD FIX ACTIVE");
-// Allow frontend (LOCAL + VERCEL)
-app.use(cors({
-  origin: [
+
+const allowedOrigins = [
     "http://localhost:5173",
     "http://localhost:3000",
     "https://lms-trial-1-l9dsz0e0a-jheninacapulongs-projects.vercel.app",
     "https://lms-trial-1.vercel.app"
-  ],
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-  credentials: true
-}));
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 
