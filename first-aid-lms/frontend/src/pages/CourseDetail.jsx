@@ -139,7 +139,7 @@ export default function CourseDetail() {
       <div className="bg-white rounded-lg shadow p-6">
 
         <div className="flex justify-between mb-4">
-          <h2 className="text-2xl font-bold">
+          <h2 className="text-2xl font-bold text-gray-600">
             Modules ({course.modules?.length || 0})
           </h2>
 
